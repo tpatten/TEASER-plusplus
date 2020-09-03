@@ -3,4 +3,14 @@ nvidia-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tp
 export PATH="/usr/lib/nvidia-450/bin":${PATH}
 export LD_LIBRARY_PATH="/usr/lib/nvidia-450:/usr/lib32/nvidia-450":${LD_LIBRARY_PATH}
 
+export PATH="/usr/local/cuda-10.2":${PATH}
+export LD_LIBRARY_PATH="/usr/local/cuda-10.2":${LD_LIBRARY_PATH}
+
+
 docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tpatten -e DISPLAY=$DISPLAY --env QT_X11_NO_MITSHM=1 --network=host --privileged 3dsmooth:latest bash
+
+nvidia-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tpatten -e DISPLAY=$DISPLAY --env QT_X11_NO_MITSHM=1 --network=host --privileged pcl_gpu:latest bash
+
+nvidia-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tpatten -e DISPLAY=$DISPLAY --env QT_X11_NO_MITSHM=1 --network=host --privileged teaser:latest bash
+
+nvidia-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tpatten -e DISPLAY=$DISPLAY --env QT_X11_NO_MITSHM=1 --network=host --privileged tpatten/hand_object_tracking:hands_iccv19_challenge bash

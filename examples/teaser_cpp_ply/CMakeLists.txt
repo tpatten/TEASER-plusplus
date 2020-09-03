@@ -10,7 +10,7 @@ find_package(teaserpp REQUIRED)
 add_executable(teaser_cpp_ply teaser_cpp_ply.cc)
 
 # Link to teaserpp & Eigen3
-target_link_libraries(teaser_cpp_ply Eigen3::Eigen teaserpp::teaser_registration teaserpp::teaser_io)
+target_link_libraries(teaser_cpp_ply Eigen3::Eigen teaserpp::teaser_registration teaserpp::teaser_io pmc)
 
 # Copy the data files to build directory
 file(COPY ../example_data/

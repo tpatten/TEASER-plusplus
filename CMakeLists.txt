@@ -47,6 +47,8 @@ if (ENABLE_MKL)
     endif ()
 endif ()
 
+find_package(OpenMP REQUIRED)
+
 if (BUILD_TEASER_FPFH)
     # Boost
     find_package(Boost 1.58 QUIET REQUIRED)
