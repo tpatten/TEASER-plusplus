@@ -64,3 +64,11 @@ RUN cd /opt/VTK && git checkout tags/v8.0.0
 RUN cd /opt/VTK && mkdir build
 RUN cd /opt/VTK/build && cmake -DCMAKE_BUILD_TYPE:STRING=Release -D VTK_RENDERING_BACKEND=OpenGL ..
 RUN cd /opt/VTK/build && make -j 32 && make install
+
+# Install PCL
+RUN mkdir -p /opt/pcl
+RUN cd /opt/pcl && wget "https://github.com/PointCloudLibrary/pcl/archive/pcl-1.9.1.zip" && unzip pcl-*.zip && rm pcl-*.zip
+RUN cd /opt/pcl/pcl-* && mkdir build
+RUN cd /opt/pcl/pcl-*/build && cmake -D WITH_CUDA=true -D BUILD_GPU=true -D BUILD_visualization=true -D BUILD_CUDA=true -D VTK_DIR=/opt/VTK/build -D BUILD_2d=true ..
+RUN cd /opt/pcl/pcl-*/build && make -j 8 && make install
+RUN cd /opt/pcl/pcl-*/build && make clean

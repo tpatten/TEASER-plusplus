@@ -14,3 +14,45 @@ nvidia-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tp
 nvidia-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tpatten -e DISPLAY=$DISPLAY --env QT_X11_NO_MITSHM=1 --network=host --privileged teaser:latest bash
 
 nvidia-docker run -it -v /tmp/.X11-unix:/tmp/.X11-unix -v /home/tpatten:/home/tpatten -e DISPLAY=$DISPLAY --env QT_X11_NO_MITSHM=1 --network=host --privileged tpatten/hand_object_tracking:hands_iccv19_challenge bash
+
+
+## Install PCL
+cd /opt
+mkdir pcl
+cd pcl
+wget "https://github.com/PointCloudLibrary/pcl/archive/pcl-1.9.1.zip"
+unzip pcl-*.zip
+rm pcl-*.zip
+cd pcl-* && mkdir build && cd build
+cmake -D WITH_CUDA=true -D BUILD_GPU=true -D BUILD_visualization=true -D BUILD_CUDA=true -D VTK_DIR=/opt/VTK/build -D BUILD_2d=true ..
+make -j 8 && make install
+make clean
+
+## Install TEASER
+cd /home/tpatten/Code/TEASER-plusplus && mkdir build && cd build
+cmake -DBUILD_TEASER_FPFH=ON .. && make
+make install
+
+## Compile examples
+# C++ minimal version
+cd /home/tpatten/Code/TEASER-plusplus && cd examples/teaser_cpp_ply && mkdir build && cd build
+cmake .. && make
+./teaser_cpp_ply
+
+# FPFH
+cd /home/tpatten/Code/TEASER-plusplus && cd examples/teaser_cpp_fpfh && mkdir build && cd build
+cmake .. && make
+
+# Python
+cd /home/tpatten/Code/TEASER-plusplus/build
+cmake -DTEASERPP_PYTHON_VERSION=3.6 .. && make teaserpp_python
+cd python && python3.6 -m pip install .
+cd /home/tpatten/Code/TEASER-plusplus/examples/teasrer_python_ply
+python3.6 teaser_python_ply.py
+
+# Python with 3DSmooth
+cd /home/tpatten/Code/TEASER-plusplus/build
+cmake -DTEASERPP_PYTHON_VERSION=3.6 .. && make teaserpp_python
+cd python && python3.6 -m pip install .
+cd /home/tpatten/Code/TEASER-plusplus/examples/teaser_python_3dsmooth
+python teaser_python_3dsmooth.py
