@@ -4,6 +4,7 @@ project(teaser_cpp_ply)
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(Eigen3 REQUIRED)
+find_package(OpenMP REQUIRED)
 find_package(teaserpp REQUIRED)
 
 # Change this line to include your own executable file

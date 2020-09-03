@@ -42,12 +42,13 @@ cmake .. && make
 # FPFH
 cd /home/tpatten/Code/TEASER-plusplus && cd examples/teaser_cpp_fpfh && mkdir build && cd build
 cmake .. && make
+./teaser_cpp_fpfh
 
 # Python
 cd /home/tpatten/Code/TEASER-plusplus/build
 cmake -DTEASERPP_PYTHON_VERSION=3.6 .. && make teaserpp_python
 cd python && python3.6 -m pip install .
-cd /home/tpatten/Code/TEASER-plusplus/examples/teasrer_python_ply
+cd /home/tpatten/Code/TEASER-plusplus/examples/teaser_python_ply
 python3.6 teaser_python_ply.py
 
 # Python with 3DSmooth
@@ -55,4 +56,4 @@ cd /home/tpatten/Code/TEASER-plusplus/build
 cmake -DTEASERPP_PYTHON_VERSION=3.6 .. && make teaserpp_python
 cd python && python3.6 -m pip install .
 cd /home/tpatten/Code/TEASER-plusplus/examples/teaser_python_3dsmooth
-python teaser_python_3dsmooth.py
+xvfb-run -s "-screen 0 1400x900x24" python3.6 teaser_python_3dsmooth.py
