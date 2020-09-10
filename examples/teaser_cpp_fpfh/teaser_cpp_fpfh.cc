@@ -112,6 +112,11 @@ int main() {
 
   auto solution = solver.getSolution();
 
+  // Print out statistics
+  std::cout << "Source points: " << src_cloud.size() << std::endl;
+  std::cout << "Target points: " << tgt_cloud.size() << std::endl;
+  std::cout << "Corrrespondences: " << correspondences.size() << std::endl;
+
   // Compare results
   std::cout << "=====================================" << std::endl;
   std::cout << "          TEASER++ Results           " << std::endl;
